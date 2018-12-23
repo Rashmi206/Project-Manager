@@ -1,0 +1,17 @@
+<nav class="navbar fixed-top navbar-expand-lg bg-primary navbar-dark">
+  <a class="navbar-brand" routerLink="/">Project Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/add-user" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Add User</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="custom-container container-fluid">
+<router-outlet></router-outlet>
+</div>
