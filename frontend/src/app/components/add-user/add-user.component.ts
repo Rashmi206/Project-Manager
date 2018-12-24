@@ -17,6 +17,10 @@ export class AddUserComponent implements OnInit {
     }
   );
   users: User[];
+  editMode=false;
+  objId:any;
+  searchText="";
+  sortBy="";
   constructor(private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
@@ -41,5 +45,39 @@ export class AddUserComponent implements OnInit {
 
   resetFields(){
     this.userForm.reset();
+    this.editMode=false;
+    this.objId=undefined;
+  }
+
+  enableEditUser(user){
+    this.userForm.setValue({
+      firstName:user.firstName,
+      lastName:user.lastName,
+      employeeId:user.employeeId
+    });
+    this.editMode=true;
+    this.objId=user._id;
+  }
+
+  editUser(){
+    this.userService.editUser(this.userForm.value,this.objId).subscribe(data=>{
+      alert("User updated successfully");
+      this.getUserList();
+      this.resetFields();
+    })
+  }
+
+  deleteUser(uid){
+    this.userService.deleteUser(uid).subscribe(data=>{
+      alert("User Deleted successfully");
+      this.getUserList();
+    })
+  }
+
+  sortFunction(key){
+    if(key==this.sortBy)
+      this.sortBy=undefined;
+    else
+      this.sortBy=key;
   }
 }

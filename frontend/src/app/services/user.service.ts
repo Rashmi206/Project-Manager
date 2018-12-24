@@ -18,4 +18,10 @@ export class UserService {
   addUser(user){
     return this.http.post('http://localhost:3000/user', user, httpOptions);
   }
+  editUser(user,uid){
+    return this.http.put('http://localhost:3000/user/'+uid,user,httpOptions);
+  }
+  deleteUser(uid){
+    return this.http.delete('http://localhost:3000/user/'+uid);
+  }
 }
