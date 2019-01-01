@@ -6,11 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SearchPipe implements PipeTransform {
 
   transform(valueList: any, searchText: string, key?: string): any {
-    let tempList=valueList;
-    if(searchText && searchText.trim()){
-      searchText=searchText.trim().toLowerCase();
-      tempList=valueList.filter(items=>{
-        for(const item of Object.keys(items)){
+    let tempList = valueList;
+    if (searchText && searchText.trim()) {
+      searchText = searchText.trim().toLowerCase();
+      tempList = valueList.filter(items => {
+        for (const item of Object.keys(items)) {
           if (item === '_id') { continue; }
           if (typeof items[item] === 'string' &&
             items[item].toLowerCase().includes(searchText)) { return true; }

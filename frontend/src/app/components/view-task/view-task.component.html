@@ -1,0 +1,99 @@
+<form [formGroup]="taskForm" class="container-fluid">
+  <div class="form-group row">
+    <label for="project" class="col-sm-2 col-form-label">Project:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="project" formControlName="project" readonly required>
+      <div *ngIf="taskform.project.invalid && (taskform.project.dirty || taskform.project.touched)" class="alert alert-danger">
+        <div *ngIf="taskform.project.errors.required">
+          Project Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="btn btn-primary btn-block" (click)="openProject()">Search</button>
+    </div>
+  </div>
+</form>
+<div class="container-fluid">
+  <div class="form-group row">
+    <label for="sort" class="col-sm-4 col-form-label">Sort Task By:</label>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('startDate')">Start Date</button>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('endDate')">End Date</button>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('priority')">Priority</button>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('finished')">Completed</button>
+    </div>
+  </div>
+  <hr class="dotted-hr" />
+</div>
+<div class="container-fluid" *ngFor="let task of tasks | search:searchText:sortBy">
+  <div class="col-xs-12">
+    <table>
+      <tr>
+        <th>Task</th>
+        <th>Parent</th>
+        <th>Priority</th>
+        <th>Start</th>
+        <th>End</th>
+        <th colspan="2"></th>
+      </tr>
+      <tr>
+        <td>
+          <div class="card">
+            <div class="card-body" style="text-align:center">
+              {{task.task}}
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="card">
+            <div class="card-body" style="text-align:center">
+              {{task.parentTask.length!=0?task.parentTask:'Task has no parent'}}
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="card">
+            <div class="card-body" style="text-align:center">
+              {{task.priority}}
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="card">
+            <div class="card-body" style="text-align:center">
+              {{task.startDate| date}}
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="card">
+            <div class="card-body" style="text-align:center">
+              {{task.endDate | date}}
+            </div>
+          </div>
+        </td>
+        <td *ngIf="!task.finished">
+          <button type="button" class="btn btn-primary btn-block" (click)="editTask(task._id)">
+            Edit
+          </button>
+        </td>
+        <td *ngIf="!task.finished">
+          <button type="button" class="btn btn-primary btn-block" (click)="endTask(task._id)">
+            End Task
+          </button>
+        </td>
+        <td colspan="2" style="text-align:center" *ngIf="task.finished">
+          Task is Finished
+        </td>
+      </tr>
+    </table>
+  </div>
+  <hr class="dotted-hr" />
+</div>

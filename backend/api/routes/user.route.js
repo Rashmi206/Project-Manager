@@ -1,5 +1,5 @@
 module.exports = function (app) {
-    
+
     const userController = require('../controllers/user.controller');
 
     app.route('/users')

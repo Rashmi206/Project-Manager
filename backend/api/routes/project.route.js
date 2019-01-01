@@ -1,5 +1,5 @@
 module.exports = function (app) {
-    
+
     const projectController = require('../controllers/project.controller');
 
     app.route('/projects')
@@ -11,5 +11,8 @@ module.exports = function (app) {
         .get(projectController.get_project)
         .put(projectController.update_project)
         .delete(projectController.delete_project)
+
+    app.route('/project-tasks')
+        .get(projectController.list_project_tasks)
 
 }

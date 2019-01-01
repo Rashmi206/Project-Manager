@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const parentSchema = require("../models/parent.model");
+const taskSchema = require("../models/task.model");
 
 const ProjectSchema = new Schema({
     project: {
@@ -27,6 +29,11 @@ const ProjectSchema = new Schema({
         required: true
     }
 });
+
+ProjectSchema.pre('remove', function (next) {
+    parentSchema.remove({ projectId: this._id }).exec();
+    taskSchema.remove({ projectId: this._id }).exec();
+})
 
 const Project = mongoose.model('Project', ProjectSchema);
 module.exports = Project;

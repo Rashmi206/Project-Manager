@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{info.title}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="custom-container container-fluid">
+    <div class="form-group row search-popup">
+      <div class="col-xs-12">
+        <input type="text" id="search" class="form-control" placeholder="Search..." [(ngModel)]="searchText">
+      </div>
+    </div>
+    <div *ngFor="let item of info.genericList| search:searchText">
+      <div class="row">
+        <div class="col-sm-12">
+
+          <button class="list-group-item list-group-item-action" type="button" [mat-dialog-close]="item">
+            <span *ngFor="let p of info.prop;let isLast=last">{{p|uppercase}}: {{item[p]}}{{isLast ? '' : ', '}}</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button id="dialog-close-btn" class="btn btn-primary btn-block" mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

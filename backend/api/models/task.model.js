@@ -1,10 +1,10 @@
-const mongoose=require("mongoose");
-const Schema=mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const TaskSchema=new Schema({
-    task:{
-        type:String,
-        required:true
+const TaskSchema = new Schema({
+    task: {
+        type: String,
+        required: true
     },
     startDate: {
         type: Date,
@@ -21,24 +21,25 @@ const TaskSchema=new Schema({
         default: 0,
         required: true
     },
-    status:{
-        type:String,
-        required:true
+    finished: {
+        type: Boolean,
+        default: false,
+        required: true
     },
     projectId: {
         type: Schema.Types.ObjectId,
         ref: 'Project',
         required: true
     },
-    parentId:{
-        type:Schema.Types.ObjectId,
-        ref:'Parent',
-        default:null
+    parentId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Parent',
+        default: null
     },
-    userId:{
-        type:Schema.Types.ObjectId,
-        ref:'User',
-        required:true
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 

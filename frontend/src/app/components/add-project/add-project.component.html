@@ -1,0 +1,127 @@
+<form [formGroup]="projectForm">
+  <div class="container-fluid">
+    <div class="form-group row">
+      <label for="projectName" class="col-sm-2 col-form-label">Project:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="projectName" formControlName="projectName" name="projectName"
+          required>
+        <div *ngIf="projectform.projectName.invalid && (projectform.projectName.dirty || projectform.projectName.touched)"
+          class="alert alert-danger">
+          <div *ngIf="projectform.projectName.errors.required">
+            Project Name is required.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-3 offset-sm-1 form-check" style="text-align:center">
+        <input class="form-check-input" type="checkbox" id="dateCheck" formControlName="dateCheck" (ngModelChange)="checkDate()">
+        <label class="form-check-label" for="dateCheck">
+          Set Start and End Date
+        </label>
+      </div>
+      <div class="col-sm-4">
+        Start Date
+        <input type="date" class="form-control" id="startDate" placeholder="Start Date" formControlName="startDate"
+          required>
+      </div>
+      <div class="col-sm-4">
+        End Date
+        <input type="date" class="form-control" id="endDate" placeholder="End Date" formControlName="endDate" required
+          (blur)="compareTwoDates()">
+        <div *ngIf="error.isError" class="alert alert-danger">
+          {{ error.errorMessage }}
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="priority" class="col-sm-2 col-form-label">Priority: {{projectform.priority.value}}</label>
+      <div class="col-sm-10">
+        <input type="range" class="form-control-range custom-range" id="priority" value="0" min="0" max="30" step="1"
+          formControlName="priority" name="priority">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="manager" class="col-sm-2 col-form-label">Manager:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="manager" formControlName="manager" readonly required>
+        <div *ngIf="projectform.manager.invalid && (projectform.manager.dirty || projectform.manager.touched)" class="alert alert-danger">
+          <div *ngIf="projectform.manager.errors.required">
+            Manager Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-primary btn-block" (click)="openManager()">Search</button>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-12 col-sm-3 offset-sm-6">
+        <button type="submit" class="btn btn-primary btn-block add-btn" [disabled]="projectForm.invalid" (click)="this.editMode?editProject():addProject()">{{editMode?'Edit':'Add'}}</button>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <button type="submit" class="btn btn-primary btn-block" (click)="resetFields()">Reset</button>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="container-fluid">
+  <hr class="solid-hr">
+  <div class="form-group col-xs-12">
+    <input type="text" id="search" class="form-control search" placeholder="Search..." [(ngModel)]="searchText">
+  </div>
+  <div class="form-group row">
+    <label for="sort" class="col-sm-4 col-form-label">Sort By:</label>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('startDate')">Start Date</button>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('endDate')">End Date</button>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('priority')">Priority</button>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <button type="button" class="btn btn-primary btn-block add-btn" (click)="sortFunction('completed')">Completed</button>
+    </div>
+  </div>
+  <hr class="dotted-hr" />
+</div>
+<div *ngFor="let project of projects | search:searchText:sortBy" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Project: {{project.project}}</h5>
+          <table class="project-list">
+            <tr>
+              <td>No. of Tasks: {{project.numberOfTasks}}</td>
+              <td>Completed: {{project.completed}}</td>
+            </tr>
+            <tr>
+              <td>Start Date: {{project.startDate | date}}</td>
+              <td>End Date: {{project.endDate | date}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <h6 class="card-title">Priority </h6>
+          {{project.priority}}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-primary btn-block" (click)="enableEditProject(project)">Edit</button>
+      </div><br>
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-primary btn-block" (click)="suspendProject(project._id)">Suspend</button>
+      </div>
+    </div>
+  </div>
+  <hr class="dotted-hr" />
+</div>

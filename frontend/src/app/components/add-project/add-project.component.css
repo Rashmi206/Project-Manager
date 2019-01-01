@@ -1,6 +1,11 @@
+.project-list{
+    width: 100%;
+}
+
 .solid-hr{
     border:1px solid #6c757d;
 }
+
 .dotted-hr {
     border-top: dotted 2px;
 }
@@ -13,7 +18,7 @@
 }
  
 @media screen and (max-width: 767px){
-    .add-btn, .search{
+    .add-btn{
         margin-bottom: 10px;
     }
 }

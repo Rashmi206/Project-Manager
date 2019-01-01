@@ -40,3 +40,11 @@ exports.delete_parent = function (req, res) {
         res.json(parent);
     });
 }
+
+exports.get_all_parents_of_project = function (req, res) {
+    parentSchema.find({ projectId: req.params.id }, function (err, parents) {
+        if (err)
+            console.log(err);
+        res.json(parents);
+    })
+}
