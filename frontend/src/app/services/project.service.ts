@@ -12,18 +12,18 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
   getAllProjects() {
-    return this.http.get('http://localhost:3000/project-tasks');
+    return this.http.get<any>('/api/project-tasks');
   }
   addProject(project) {
-    return this.http.post('http://localhost:3000/project', project, httpOptions);
+    return this.http.post<any>('/api/project', project, httpOptions);
   }
   editProject(data, pid) {
-    return this.http.put('http://localhost:3000/project/' + pid, data, httpOptions);
+    return this.http.put<any>('/api/project/' + pid, data, httpOptions);
   }
   deleteProject(pid) {
-    return this.http.delete('http://localhost:3000/project/' + pid);
+    return this.http.delete<any>('/api/project/' + pid);
   }
   getProjectById(pid) {
-    return this.http.get('http://localhost:3000/project/' + pid);
+    return this.http.get<any>('/api/project/' + pid);
   }
 }

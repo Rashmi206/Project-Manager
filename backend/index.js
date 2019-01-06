@@ -10,7 +10,7 @@ const taskRoutes = require("./api/routes/task.route");
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/ProjectManager', { useNewUrlParser: true });
+mongoose.connect(config.mongodb, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

@@ -12,27 +12,27 @@ export class TaskServiceService {
 
   constructor(private http: HttpClient) { }
   getAllParentTasks() {
-    return this.http.get('http://localhost:3000/parents');
+    return this.http.get<any>('/api/parents');
   }
   addParentTask(parent) {
-    return this.http.post('http://localhost:3000/parent', parent, httpOptions);
+    return this.http.post<any>('/api/parent', parent, httpOptions);
   }
   addTask(task) {
-    return this.http.post('http://localhost:3000/task', task, httpOptions);
+    return this.http.post<any>('/api/task', task, httpOptions);
   }
   viewTaskByProject(pid) {
-    return this.http.get('http://localhost:3000/task-by-project/' + pid);
+    return this.http.get<any>('/api/task-by-project/' + pid);
   }
   endTask(tid, data) {
-    return this.http.put('http://localhost:3000/task/' + tid, data, httpOptions);
+    return this.http.put<any>('/api/task/' + tid, data, httpOptions);
   }
   getTask(tid) {
-    return this.http.get('http://localhost:3000/task/' + tid);
+    return this.http.get<any>('/api/task/' + tid);
   }
   getParentById(pid) {
-    return this.http.get('http://localhost:3000/parent/' + pid);
+    return this.http.get<any>('/api/parent/' + pid);
   }
   getParentsByProject(pid) {
-    return this.http.get('http://localhost:3000/parent-of-project/' + pid);
+    return this.http.get<any>('/api/parent-of-project/' + pid);
   }
 }
