@@ -5,7 +5,7 @@ pipeline {
         stage('Build Project Manager Frontend') {
             steps {
                 echo 'Building Project Manager Frontend..'
-                // bat 'cd ./TaskManagerFrontend/ && npm install && npm run build --prod'
+                bat 'cd ./frontend/ && npm install && npm run build --prod'
             }
         }
         stage('Build Project Manager Backend') {
@@ -32,7 +32,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // bat 'docker-compose up --build -d'
+                bat 'docker-compose up --build -d'
             }
         }
     }
