@@ -12,8 +12,8 @@ services:
     # container_name: taskmanager-backend
     # restart: always
     build: backend
-    volumes:
-      - ./:/app
+    # volumes:
+    #   - ./:/app
     ports:
       - "3000:3000"
     links:
